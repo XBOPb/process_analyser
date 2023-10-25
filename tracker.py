@@ -2,14 +2,14 @@ import wmi
 
 class ProcessMonitor():
     
-    def __init__(self):
+    def __init__(self, notify_filter='operation'):
         self.process_property = {
             'Caption': None,
             'CreationDate': None,
             'ProcessID': None
         }
-        self.filter = 'creation'
-        self.process_watcher = wmi.WMI().Win32_Process.watch_for(self.filter)
+        
+        self.process_watcher = wmi.WMI().Win32_Process.watch_for(notify_filter)
 
     def update(self):
         process = self.process_watcher()
